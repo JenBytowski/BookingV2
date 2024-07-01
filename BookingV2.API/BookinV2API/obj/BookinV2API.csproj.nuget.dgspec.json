@@ -1,0 +1,77 @@
+{
+  "format": 1,
+  "restore": {
+    "L:\\.NET Apps\\BookingV2\\BookingV2\\BookingV2.API\\BookinV2API\\BookinV2API.csproj": {}
+  },
+  "projects": {
+    "L:\\.NET Apps\\BookingV2\\BookingV2\\BookingV2.API\\BookinV2API\\BookinV2API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "L:\\.NET Apps\\BookingV2\\BookingV2\\BookingV2.API\\BookinV2API\\BookinV2API.csproj",
+        "projectName": "BookinV2API",
+        "projectPath": "L:\\.NET Apps\\BookingV2\\BookingV2\\BookingV2.API\\BookinV2API\\BookinV2API.csproj",
+        "packagesPath": "C:\\Users\\petry\\.nuget\\packages\\",
+        "outputPath": "L:\\.NET Apps\\BookingV2\\BookingV2\\BookingV2.API\\BookinV2API\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\petry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
