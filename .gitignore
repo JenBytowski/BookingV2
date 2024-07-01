@@ -111,3 +111,5 @@ yarn-error.log*
 *.sw*
 builds/
 markups/
+bin/
+obj/
