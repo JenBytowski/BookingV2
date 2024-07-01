@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookinV2API", "BookinV2API\BookinV2API.csproj", "{107C2823-1622-439D-888B-7BF2D39D8633}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookinV2API", "BookinV2API\BookinV2API.csproj", "{107C2823-1622-439D-888B-7BF2D39D8633}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
