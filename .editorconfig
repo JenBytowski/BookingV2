@@ -1,0 +1,32 @@
+﻿root = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# SA0001: XML comment analysis disabled
+dotnet_diagnostic.SA0001.severity = none
+
+
+[*.{cs,vb}]
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_method = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+dotnet_style_qualification_for_event = false:suggestion
+dotnet_sort_system_directives_first = true
+
+dotnet_naming_rule.methods_and_properties_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.methods_and_properties_should_be_pascal_case.symbols = method, property
+dotnet_naming_rule.methods_and_properties_should_be_pascal_case.style = pascal_case
+
+dotnet_naming_symbols.method.applicable_kinds = method
+dotnet_naming_symbols.property.applicable_kinds = property
+
+dotnet_naming_style.pascal_case.required_prefix = 
+dotnet_naming_style.pascal_case.required_suffix = 
+dotnet_naming_style.pascal_case.word_separator = 
+dotnet_naming_style.pascal_case.capitalization = pascal_case
