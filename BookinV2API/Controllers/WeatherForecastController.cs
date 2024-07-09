@@ -28,6 +28,7 @@ namespace BookinV2API.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
+        [JwtBearerAuthorization]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

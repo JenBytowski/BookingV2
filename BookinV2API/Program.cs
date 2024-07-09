@@ -2,6 +2,8 @@ using BookinV2.Data;
 using BookinV2.Data.Entities;
 using BookinV2.Data.Interfaces;
 using BookinV2API;
+using IdentityModel;
+using IdentityServer4.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,19 +18,36 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 builder.Services.AddScoped<IBookinV2DataContext, BookingV2DataContext>();
 
-builder.Services.AddIdentityServer()
+var identityResources = builder.Configuration.GetSection("IdentityServer:IdentityResources").Get<List<IdentityResource>>();
+var apiScopes = builder.Configuration.GetSection("IdentityServer:ApiScopes").Get<List<ApiScope>>();
+var clients = builder.Configuration.GetSection("IdentityServer:Clients").Get<List<Client>>();
+
+builder.Services.AddIdentityServer(x =>
+{
+    x.Logging.TokenRequestSensitiveValuesFilter =
+            new HashSet<string>
+            {
+                OidcConstants.TokenRequest.ClientSecret,
+                OidcConstants.TokenRequest.Password,
+                OidcConstants.TokenRequest.ClientAssertion,
+                OidcConstants.TokenRequest.RefreshToken,
+                OidcConstants.TokenRequest.DeviceCode,
+               // dcConstants.TokenRequest.
+            };
+})
     .AddDeveloperSigningCredential()
-    .AddInMemoryIdentityResources(Config.IdentityResources)
-    .AddInMemoryApiScopes(Config.ApiScopes)
-    .AddInMemoryClients(Config.Clients)
+    .AddInMemoryIdentityResources(identityResources)
+    .AddInMemoryApiScopes(apiScopes)
+    .AddInMemoryClients(clients)
     .AddAspNetIdentity<ApplicationUser>();
 
 builder.Services.AddAuthentication()
     .AddJwtBearer("Bearer", options =>
     {
-        options.Authority = "https://localhost:5001";
+        options.Authority = "https://localhost:7224";
         options.RequireHttpsMetadata = false;
-        options.Audience = "api1";
+        options.IncludeErrorDetails = true;
+        options.TokenValidationParameters.ValidateAudience = false;
     });
 
 // Add services to the container.
@@ -56,8 +75,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseStaticFiles();
 
 app.UseSpaStaticFiles();
@@ -66,7 +83,13 @@ app.UseRouting();
 
 app.UseIdentityServer();
 
+// app.UseAuthentication();
 app.UseAuthorization();
+
+app.Use((y, x) =>
+{
+    return x.Invoke();
+});
 
 app.UseEndpoints(route =>
 {
