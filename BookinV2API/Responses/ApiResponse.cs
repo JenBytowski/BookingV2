@@ -6,5 +6,4 @@ namespace BookinV2API.Responses
         public T? Response { get; set; }
         public List<string> Errors { get; set; } = new List<string>();
     }
-
 }

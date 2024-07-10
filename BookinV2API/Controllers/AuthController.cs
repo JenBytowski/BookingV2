@@ -63,6 +63,12 @@ namespace BookinV2API.Controllers
             }
 
             response.IsSucceeded = false;
+            foreach (var error in result.Errors)
+            {
+                response.Errors.Add(error.Description);
+            }
+
+            response.IsSucceeded = false;
             return this.BadRequest(response);
         }
 
