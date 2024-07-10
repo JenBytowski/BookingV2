@@ -10,6 +10,6 @@ namespace BookinV2.Data.Interfaces
         void Create<TEntity>(TEntity entity)
             where TEntity : BaseEntity;
 
-        Task SubmitChangesAsync<TEntity>(CancellationToken token);
+        Task SubmitChangesAsync(CancellationToken token);
     }
 }

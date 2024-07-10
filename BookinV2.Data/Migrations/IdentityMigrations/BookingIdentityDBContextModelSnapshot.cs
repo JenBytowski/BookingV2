@@ -4,18 +4,16 @@ using BookinV2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BookinV2.Data.Migrations
+namespace BookinV2.Data.Migrations.IdentityMigrations
 {
-    [DbContext(typeof(BookingV2DBContext))]
-    [Migration("20240705112236_Init")]
-    partial class Init
+    [DbContext(typeof(BookingIdentityDBContext))]
+    partial class BookingIdentityDBContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +22,7 @@ namespace BookinV2.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BookinV2.Data.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("BookinV2.Data.Entities.IdentityEntities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -233,7 +231,7 @@ namespace BookinV2.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("BookinV2.Data.Entities.ApplicationUser", null)
+                    b.HasOne("BookinV2.Data.Entities.IdentityEntities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -242,7 +240,7 @@ namespace BookinV2.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("BookinV2.Data.Entities.ApplicationUser", null)
+                    b.HasOne("BookinV2.Data.Entities.IdentityEntities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -257,7 +255,7 @@ namespace BookinV2.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookinV2.Data.Entities.ApplicationUser", null)
+                    b.HasOne("BookinV2.Data.Entities.IdentityEntities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -266,7 +264,7 @@ namespace BookinV2.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("BookinV2.Data.Entities.ApplicationUser", null)
+                    b.HasOne("BookinV2.Data.Entities.IdentityEntities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

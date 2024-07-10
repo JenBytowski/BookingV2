@@ -1,7 +1,6 @@
 using BookinV2.Data;
-using BookinV2.Data.Entities;
+using BookinV2.Data.Entities.IdentityEntities;
 using BookinV2.Data.Interfaces;
-using BookinV2API;
 using IdentityModel;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Identity;
@@ -12,8 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BookingV2DBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDbContext<BookingIdentityDBContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<BookingV2DBContext>()
+    .AddEntityFrameworkStores<BookingIdentityDBContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IBookinV2DataContext, BookingV2DataContext>();

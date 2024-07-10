@@ -1,4 +1,4 @@
-using BookinV2.Data.Entities;
+using BookinV2.Data.Entities.IdentityEntities;
 using BookinV2API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +21,26 @@ namespace BookinV2API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
+            if (model == null)
+            {
+                return this.BadRequest("Register model is null");
+            }
+
+            if (string.IsNullOrEmpty(model.Username))
+            {
+                return this.BadRequest("Username not specified");
+            }
+
+            if (string.IsNullOrEmpty(model.Password))
+            {
+                return this.BadRequest("Password not specified");
+            }
+
+            if (string.IsNullOrEmpty(model.Email))
+            {
+                return this.BadRequest("Email not specified");
+            }
+
             var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
             var result = await this._userManager.CreateAsync(user, model.Password);
 
@@ -35,6 +55,21 @@ namespace BookinV2API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
+            if (model == null)
+            {
+                return this.BadRequest("Register model is null");
+            }
+
+            if (string.IsNullOrEmpty(model.Username))
+            {
+                return this.BadRequest("Username not specified");
+            }
+
+            if (string.IsNullOrEmpty(model.Password))
+            {
+                return this.BadRequest("Password not specified");
+            }
+
             var result = await this._signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
 
             if (result.Succeeded)
