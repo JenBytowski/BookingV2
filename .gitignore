@@ -114,3 +114,6 @@ builds/
 markups/
 bin/
 obj/
+
+# Visual Studio files
+**/BookinV2API.csproj.user
