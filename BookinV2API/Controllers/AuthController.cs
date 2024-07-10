@@ -1,6 +1,6 @@
 using BookinV2.Data.Entities.IdentityEntities;
-using BookinV2API.Errors;
 using BookinV2API.Models;
+using BookinV2API.Responses;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,27 +22,34 @@ namespace BookinV2API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var errorResponse = new ErrorResponse();
+            var response = new ApiResponse<object>();
 
             if (model == null)
             {
-                errorResponse.Errors.Add(ErrorMessages.RegisterModelNull);
-                return this.BadRequest(errorResponse);
+                response.Errors.Add("Register model is null");
+                response.IsSucceeded = false;
+                return this.BadRequest(response);
             }
 
             if (string.IsNullOrEmpty(model.Username))
             {
-                errorResponse.Errors.Add(ErrorMessages.UsernameNotSpecified);
+                response.Errors.Add("Username not specified");
             }
 
             if (string.IsNullOrEmpty(model.Password))
             {
-                errorResponse.Errors.Add(ErrorMessages.PasswordNotSpecified);
+                response.Errors.Add("Password not specified");
             }
 
             if (string.IsNullOrEmpty(model.Email))
             {
-                errorResponse.Errors.Add(ErrorMessages.EmailNotSpecified);
+                response.Errors.Add("Email not specified");
+            }
+
+            if (response.Errors.Any())
+            {
+                response.IsSucceeded = false;
+                return this.BadRequest(response);
             }
 
             var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
@@ -50,42 +57,55 @@ namespace BookinV2API.Controllers
 
             if (result.Succeeded)
             {
-                return this.Ok();
+                response.IsSucceeded = true;
+                response.Response = null;
+                return this.Ok(response);
             }
 
-            return this.BadRequest(errorResponse);
+            response.IsSucceeded = false;
+            return this.BadRequest(response);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var errorResponse = new ErrorResponse();
+            var response = new ApiResponse<object>();
 
             if (model == null)
             {
-                errorResponse.Errors.Add(ErrorMessages.LoginModelNull);
-                return this.BadRequest(errorResponse);
+                response.Errors.Add("Login model is null");
+                response.IsSucceeded = false;
+                return this.BadRequest(response);
             }
 
             if (string.IsNullOrEmpty(model.Username))
             {
-                errorResponse.Errors.Add(ErrorMessages.UsernameNotSpecified);
+                response.Errors.Add("Username not specified");
             }
 
             if (string.IsNullOrEmpty(model.Password))
             {
-                errorResponse.Errors.Add(ErrorMessages.PasswordNotSpecified);
+                response.Errors.Add("Password not specified");
+            }
+
+            if (response.Errors.Any())
+            {
+                response.IsSucceeded = false;
+                return this.BadRequest(response);
             }
 
             var result = await this._signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
 
             if (result.Succeeded)
             {
-                return this.Ok();
+                response.IsSucceeded = true;
+                response.Response = null;
+                return this.Ok(response);
             }
 
-            errorResponse.Errors.Add(ErrorMessages.InvalidLoginAttempt);
-            return this.Unauthorized(errorResponse);
+            response.IsSucceeded = false;
+            response.Errors.Add("Invalid login attempt.");
+            return this.Unauthorized(response);
         }
     }
 }
