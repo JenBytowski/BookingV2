@@ -1,4 +1,5 @@
 using BookinV2.Data.Entities.IdentityEntities;
+using BookinV2API.Errors;
 using BookinV2API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,24 +22,27 @@ namespace BookinV2API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
+            var errorResponse = new ErrorResponse();
+
             if (model == null)
             {
-                return this.BadRequest("Register model is null");
+                errorResponse.Errors.Add(ErrorMessages.RegisterModelNull);
+                return this.BadRequest(errorResponse);
             }
 
             if (string.IsNullOrEmpty(model.Username))
             {
-                return this.BadRequest("Username not specified");
+                errorResponse.Errors.Add(ErrorMessages.UsernameNotSpecified);
             }
 
             if (string.IsNullOrEmpty(model.Password))
             {
-                return this.BadRequest("Password not specified");
+                errorResponse.Errors.Add(ErrorMessages.PasswordNotSpecified);
             }
 
             if (string.IsNullOrEmpty(model.Email))
             {
-                return this.BadRequest("Email not specified");
+                errorResponse.Errors.Add(ErrorMessages.EmailNotSpecified);
             }
 
             var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
@@ -49,25 +53,28 @@ namespace BookinV2API.Controllers
                 return this.Ok();
             }
 
-            return this.BadRequest(result.Errors);
+            return this.BadRequest(errorResponse);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
+            var errorResponse = new ErrorResponse();
+
             if (model == null)
             {
-                return this.BadRequest("Register model is null");
+                errorResponse.Errors.Add(ErrorMessages.LoginModelNull);
+                return this.BadRequest(errorResponse);
             }
 
             if (string.IsNullOrEmpty(model.Username))
             {
-                return this.BadRequest("Username not specified");
+                errorResponse.Errors.Add(ErrorMessages.UsernameNotSpecified);
             }
 
             if (string.IsNullOrEmpty(model.Password))
             {
-                return this.BadRequest("Password not specified");
+                errorResponse.Errors.Add(ErrorMessages.PasswordNotSpecified);
             }
 
             var result = await this._signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
@@ -77,7 +84,8 @@ namespace BookinV2API.Controllers
                 return this.Ok();
             }
 
-            return this.Unauthorized();
+            errorResponse.Errors.Add(ErrorMessages.InvalidLoginAttempt);
+            return this.Unauthorized(errorResponse);
         }
     }
 }
