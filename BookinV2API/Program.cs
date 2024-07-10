@@ -1,6 +1,7 @@
 using BookinV2.Data;
 using BookinV2.Data.Entities.IdentityEntities;
 using BookinV2.Data.Interfaces;
+using BookinV2API.Extensions;
 using IdentityModel;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Identity;
@@ -11,46 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BookingV2DBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDbContext<BookingIdentityDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<BookingIdentityDBContext>()
-    .AddDefaultTokenProviders();
-
-builder.Services.AddScoped<IBookinV2DataContext, BookingV2DataContext>();
-
-var identityResources = builder.Configuration.GetSection("IdentityServer:IdentityResources").Get<List<IdentityResource>>();
-var apiScopes = builder.Configuration.GetSection("IdentityServer:ApiScopes").Get<List<ApiScope>>();
-var clients = builder.Configuration.GetSection("IdentityServer:Clients").Get<List<Client>>();
-
-builder.Services.AddIdentityServer(x =>
-{
-    x.Logging.TokenRequestSensitiveValuesFilter =
-            new HashSet<string>
-            {
-                OidcConstants.TokenRequest.ClientSecret,
-                OidcConstants.TokenRequest.Password,
-                OidcConstants.TokenRequest.ClientAssertion,
-                OidcConstants.TokenRequest.RefreshToken,
-                OidcConstants.TokenRequest.DeviceCode,
-               // dcConstants.TokenRequest.
-            };
-})
-    .AddDeveloperSigningCredential()
-    .AddInMemoryIdentityResources(identityResources)
-    .AddInMemoryApiScopes(apiScopes)
-    .AddInMemoryClients(clients)
-    .AddAspNetIdentity<ApplicationUser>();
-
-builder.Services.AddAuthentication()
-    .AddJwtBearer("Bearer", options =>
-    {
-        options.Authority = "https://localhost:7224";
-        options.RequireHttpsMetadata = false;
-        options.IncludeErrorDetails = true;
-        options.TokenValidationParameters.ValidateAudience = false;
-    });
+builder.Services.AddIdentityServerConfiguration(builder.Configuration);
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -85,13 +47,7 @@ app.UseRouting();
 
 app.UseIdentityServer();
 
-// app.UseAuthentication();
 app.UseAuthorization();
-
-app.Use((y, x) =>
-{
-    return x.Invoke();
-});
 
 app.UseEndpoints(route =>
 {

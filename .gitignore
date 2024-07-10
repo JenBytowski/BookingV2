@@ -117,3 +117,4 @@ obj/
 
 # Visual Studio files
 **/BookinV2API.csproj.user
+**/tempkey.jwk
