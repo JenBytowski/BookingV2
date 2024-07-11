@@ -1,6 +1,10 @@
-using Microsoft.AspNetCore.Builder;
+using BookinV2API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDBContextServerConfiguration(builder.Configuration);
+
+builder.Services.AddIdentityServerConfiguration(builder.Configuration);
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -27,13 +31,20 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseStaticFiles();
 
 app.UseSpaStaticFiles();
 
-app.MapControllers();
+app.UseRouting();
+
+app.UseIdentityServer();
+
+app.UseAuthorization();
+
+app.UseEndpoints(route =>
+{
+    route.MapControllers();
+});
 
 app.UseSpa(configuration =>
 {
