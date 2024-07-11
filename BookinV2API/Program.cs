@@ -1,16 +1,8 @@
-using BookinV2.Data;
-using BookinV2.Data.Entities.IdentityEntities;
-using BookinV2.Data.Interfaces;
 using BookinV2API.Extensions;
-using IdentityModel;
-using IdentityServer4.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<BookingV2DBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDBContextServerConfiguration(builder.Configuration);
 
 builder.Services.AddIdentityServerConfiguration(builder.Configuration);
 

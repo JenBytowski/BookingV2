@@ -26,29 +26,27 @@ namespace BookinV2API.Controllers
 
             if (model == null)
             {
-                response.Errors.Add("Register model is null");
-                response.IsSucceeded = false;
+                response.AddError("Register model is null");
                 return this.BadRequest(response);
             }
 
             if (string.IsNullOrEmpty(model.Username))
             {
-                response.Errors.Add("Username not specified");
+                response.AddError("Username not specified");
             }
 
             if (string.IsNullOrEmpty(model.Password))
             {
-                response.Errors.Add("Password not specified");
+                response.AddError("Password not specified");
             }
 
             if (string.IsNullOrEmpty(model.Email))
             {
-                response.Errors.Add("Email not specified");
+                response.AddError("Email not specified");
             }
 
             if (response.Errors.Any())
             {
-                response.IsSucceeded = false;
                 return this.BadRequest(response);
             }
 
@@ -62,13 +60,11 @@ namespace BookinV2API.Controllers
                 return this.Ok(response);
             }
 
-            response.IsSucceeded = false;
             foreach (var error in result.Errors)
             {
-                response.Errors.Add(error.Description);
+                response.AddError(error.Description);
             }
 
-            response.IsSucceeded = false;
             return this.BadRequest(response);
         }
 
@@ -79,24 +75,22 @@ namespace BookinV2API.Controllers
 
             if (model == null)
             {
-                response.Errors.Add("Login model is null");
-                response.IsSucceeded = false;
+                response.AddError("Login model is null");
                 return this.BadRequest(response);
             }
 
             if (string.IsNullOrEmpty(model.Username))
             {
-                response.Errors.Add("Username not specified");
+                response.AddError("Username not specified");
             }
 
             if (string.IsNullOrEmpty(model.Password))
             {
-                response.Errors.Add("Password not specified");
+                response.AddError("Password not specified");
             }
 
             if (response.Errors.Any())
             {
-                response.IsSucceeded = false;
                 return this.BadRequest(response);
             }
 
@@ -109,8 +103,7 @@ namespace BookinV2API.Controllers
                 return this.Ok(response);
             }
 
-            response.IsSucceeded = false;
-            response.Errors.Add("Invalid login attempt.");
+            response.AddError("Invalid login attempt.");
             return this.Unauthorized(response);
         }
     }
