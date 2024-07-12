@@ -19,8 +19,6 @@ namespace BookinV2API.Extensions
                 .AddEntityFrameworkStores<BookingIdentityDBContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddScoped<IBookinV2DataContext, BookingV2DataContext>();
-
             var identityResources = configuration.GetSection("IdentityServer:IdentityResources").Get<List<IdentityResource>>();
             var apiScopes = configuration.GetSection("IdentityServer:ApiScopes").Get<List<ApiScope>>();
             var clients = configuration.GetSection("IdentityServer:Clients").Get<List<Client>>();

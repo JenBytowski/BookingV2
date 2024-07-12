@@ -2,7 +2,7 @@ using BookinV2API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDBContextServerConfiguration(builder.Configuration);
+builder.Services.AddDBContextConfiguration(builder.Configuration);
 
 builder.Services.AddIdentityServerConfiguration(builder.Configuration);
 
