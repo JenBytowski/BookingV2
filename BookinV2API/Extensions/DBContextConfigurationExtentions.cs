@@ -7,7 +7,7 @@ namespace BookinV2API.Extensions
     {
         public static void AddDBContextServerConfiguration(this IServiceCollection services, ConfigurationManager configuration)
         {
-            services.AddDbContext<BookingIdentityDBContext>(options =>
+            services.AddDbContext<BookingV2DBContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
         }
     }
