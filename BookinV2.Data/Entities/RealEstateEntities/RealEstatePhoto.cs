@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookinV2.Data.Entities
+namespace BookinV2.Data.Entities.RealEstateEntities
 {
     public class RealEstatePhoto : BaseEntity
     {

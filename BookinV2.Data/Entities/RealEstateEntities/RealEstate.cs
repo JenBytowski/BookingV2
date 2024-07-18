@@ -1,4 +1,4 @@
-namespace BookinV2.Data.Entities
+namespace BookinV2.Data.Entities.RealEstateEntities
 {
     public class RealEstate : BaseEntity
     {

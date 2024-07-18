@@ -1,4 +1,4 @@
-using BookinV2.Data.Entities;
+using BookinV2.Data.Entities.RealEstateEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

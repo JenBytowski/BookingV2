@@ -1,4 +1,4 @@
-using BookinV2.Data.Entities;
+using BookinV2.Data.Entities.RealEstateEntities;
 using BookinV2.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +12,7 @@ namespace BookinV2.Data
         }
 
         public DbSet<Advertisement>? Advertisements { get; set; }
+
         public DbSet<Advertisement>? RealEstates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
