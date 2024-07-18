@@ -1,5 +1,5 @@
-using BookinV2.Data.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using BookinV2.Data.Entities.RealEstateEntities;
+using BookinV2.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookinV2.Data
@@ -11,8 +11,16 @@ namespace BookinV2.Data
         {
         }
 
+        public DbSet<Advertisement>? Advertisements { get; set; }
+
+        public DbSet<Advertisement>? RealEstates { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfiguration(new RealEstateEntityTypeConfiguration());
+            builder.ApplyConfiguration(new RealEstatePhotoEntityTypeConfiguration());
+            builder.ApplyConfiguration(new AdvertisementEntityTypeConfiguration());
+
             base.OnModelCreating(builder);
         }
     }
