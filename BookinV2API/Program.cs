@@ -6,6 +6,16 @@ builder.Services.AddDBContextServerConfiguration(builder.Configuration);
 
 builder.Services.AddIdentityServerConfiguration(builder.Configuration);
 
+builder.Services.AddCors(x =>
+{
+    x.AddPolicy("Frontend", y =>
+    {
+        y.WithOrigins("*")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -28,6 +38,8 @@ if (app.Environment.IsDevelopment())
 
     app.UseSwaggerUI();
 }
+
+app.UseCors("Frontend");
 
 app.UseHttpsRedirection();
 

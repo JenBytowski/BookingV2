@@ -1,3 +1,5 @@
+using BookingV2.Logic.Contract;
+using BookingV2.Logic.Services;
 using BookinV2.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,8 @@ namespace BookinV2API.Extensions
         {
             services.AddDbContext<BookingV2DBContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IRealEstateService, RealEstateService>();
         }
     }
 }
