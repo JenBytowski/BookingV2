@@ -11,8 +11,6 @@ namespace BookinV2API.Extensions
         {
             services.AddDbContext<BookingV2DBContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddScoped<IRealEstateService, RealEstateService>();
         }
     }
 }

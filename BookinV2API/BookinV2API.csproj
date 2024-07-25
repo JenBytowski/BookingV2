@@ -19,6 +19,7 @@
 	</PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="IdentityServer4" Version="4.1.2" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.31" />
@@ -47,7 +48,6 @@
 
 	<ItemGroup>
 	  <Folder Include="BookingV2Client\src\app\models\" />
-	  <Folder Include="Models\Новая папка\" />
 	</ItemGroup>
 	
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

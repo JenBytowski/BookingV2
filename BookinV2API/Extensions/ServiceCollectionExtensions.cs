@@ -6,16 +6,14 @@ namespace BookinV2API.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddAutoMapperConfiguration(this IServiceCollection services)
+        public static void AddAutoMapperConfiguration(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(MappingProfile));
-            return services;
         }
 
-        public static IServiceCollection AddRealEstateService(this IServiceCollection services)
+        public static void AddServices(this IServiceCollection services)
         {
             services.AddScoped<IRealEstateService, RealEstateService>();
-            return services;
         }
     }
 }

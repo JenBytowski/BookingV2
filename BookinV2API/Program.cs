@@ -6,6 +6,10 @@ builder.Services.AddDBContextServerConfiguration(builder.Configuration);
 
 builder.Services.AddIdentityServerConfiguration(builder.Configuration);
 
+builder.Services.AddServices();
+
+builder.Services.AddAutoMapperConfiguration();
+
 builder.Services.AddCors(x =>
 {
     x.AddPolicy("Frontend", y =>

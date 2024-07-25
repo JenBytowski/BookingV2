@@ -1,6 +1,6 @@
 namespace BookingV2.Logic.Responses
 {
-    public class ApiResponse<T>
+    public class ServiceResult<T>
     {
         public bool IsSucceeded { get; set; } = true;
 
