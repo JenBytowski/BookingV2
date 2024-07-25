@@ -1,6 +1,6 @@
 namespace BookingV2.Logic.Models
 {
-    public class AdvertisementDto
+    public class AdvertisementModel
     {
         public int Id { get; set; }
 
@@ -14,6 +14,6 @@ namespace BookingV2.Logic.Models
 
         public int RealEstateId { get; set; }
 
-        public AdvertisementDto? RealEstate { get; set; }
+        public AdvertisementModel? RealEstate { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 namespace BookinV2.Data.Entities.RealEstateEntities
 {
-    public class RealEstateDto : BaseEntity
+    public class RealEstate : BaseEntity
     {
         public string Address { get; set; }
 

@@ -1,6 +1,6 @@
 namespace BookingV2.Logic.Models
 {
-    public class RealEstateDto
+    public class RealEstateModel
     {
         public int Id { get; set; }
 

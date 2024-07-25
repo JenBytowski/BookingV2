@@ -1,5 +1,5 @@
 using AutoMapper;
-using BookinV2.Data.Entities.RealEstateEntities;
+using BookingV2.Logic.Models;
 using BookinV2API.Models.DTOs;
 
 namespace BookinV2API.Mappings
@@ -8,7 +8,7 @@ namespace BookinV2API.Mappings
     {
         public MappingProfile()
         {
-            this.CreateMap<RealEstateDto, RealEstateDto>()
+            this.CreateMap<RealEstateModel, RealEstateDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
                 .ForMember(dest => dest.Square, opt => opt.MapFrom(src => src.Square))

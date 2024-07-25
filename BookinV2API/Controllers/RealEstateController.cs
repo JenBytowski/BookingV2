@@ -1,8 +1,8 @@
 using AutoMapper;
 using BookingV2.Logic.Contract;
 using BookingV2.Logic.Models;
-using BookingV2.Logic.Responses;
 using BookinV2.Data.Entities.RealEstateEntities;
+using BookinV2API.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingV2API.Controllers
@@ -30,7 +30,7 @@ namespace BookingV2API.Controllers
                 return this.StatusCode(500, response.Errors);
             }
 
-            var realEstateDtos = this._mapper.Map<IEnumerable<BookingV2.Logic.Models.RealEstateDto>>(response.Response);
+            var realEstateDtos = this._mapper.Map<IEnumerable<RealEstateDto>>(response.Response);
             return this.Ok(realEstateDtos);
         }
 
@@ -44,14 +44,14 @@ namespace BookingV2API.Controllers
                 return this.NotFound(response.Errors);
             }
 
-            var realEstateDto = this._mapper.Map<BookingV2.Logic.Models.RealEstateDto>(response.Response);
+            var realEstateDto = this._mapper.Map<RealEstateDto>(response.Response);
             return this.Ok(realEstateDto);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] BookingV2.Logic.Models.RealEstateDto realEstateDto)
+        public async Task<IActionResult> Create([FromBody] RealEstateDto realEstateDto)
         {
-            var realEstate = this._mapper.Map<BookinV2.Data.Entities.RealEstateEntities.RealEstateDto>(realEstateDto);
+            var realEstate = this._mapper.Map<RealEstateModel>(realEstateDto);
             var response = await this._realEstateService.AddAsync(realEstate);
 
             if (!response.IsSucceeded)
@@ -59,19 +59,19 @@ namespace BookingV2API.Controllers
                 return this.StatusCode(500, response.Errors);
             }
 
-            var createdDto = this._mapper.Map<BookingV2.Logic.Models.RealEstateDto>(response.Response);
+            var createdDto = this._mapper.Map<RealEstateDto>(response.Response);
             return this.CreatedAtAction(nameof(this.GetById), new { id = createdDto.Id }, createdDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] BookingV2.Logic.Models.RealEstateDto realEstateDto)
+        public async Task<IActionResult> Update(int id, [FromBody] RealEstateDto realEstateDto)
         {
             if (id != realEstateDto.Id)
             {
                 return this.BadRequest("ID mismatch.");
             }
 
-            var realEstate = this._mapper.Map<BookinV2.Data.Entities.RealEstateEntities.RealEstateDto>(realEstateDto);
+            var realEstate = this._mapper.Map<RealEstateModel>(realEstateDto);
             var response = await this._realEstateService.UpdateAsync(realEstate);
 
             if (!response.IsSucceeded)
