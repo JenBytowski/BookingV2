@@ -1,3 +1,15 @@
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { RealEstateListComponent } from './real-estate-list/real-estate-list.component';
+import { RealEstateAddComponent } from './real-estate-add/real-estate-add.component';
 
-export const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: RealEstateListComponent },
+  { path: 'add', component: RealEstateAddComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
