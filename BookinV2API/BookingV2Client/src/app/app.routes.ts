@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RealEstateListComponent } from './realeestate-list/realeestate-list.component';
+import { RealEstateListComponent } from './real-estate-list/real-estate-list.component';
 import { RealEstateAddComponent } from './real-estate-add/real-estate-add.component';
 
 const routes: Routes = [

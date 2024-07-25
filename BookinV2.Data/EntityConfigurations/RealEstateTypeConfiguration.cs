@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookinV2.Data.EntityConfigurations
 {
-    internal class RealEstateEntityTypeConfiguration : IEntityTypeConfiguration<RealEstate>
+    internal class RealEstateEntityTypeConfiguration : IEntityTypeConfiguration<RealEstateDto>
     {
-        public void Configure(EntityTypeBuilder<RealEstate> builder)
+        public void Configure(EntityTypeBuilder<RealEstateDto> builder)
         {
             builder.HasKey(re => re.Id);
 

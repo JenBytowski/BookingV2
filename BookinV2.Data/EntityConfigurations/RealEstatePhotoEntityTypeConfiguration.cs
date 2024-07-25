@@ -14,7 +14,7 @@ namespace BookinV2.Data.EntityConfigurations
                 .IsRequired()
                 .HasMaxLength(500);
 
-            builder.HasOne<RealEstate>()
+            builder.HasOne<RealEstateDto>()
                 .WithMany()
                 .HasForeignKey(rep => rep.RealEstateId)
                 .IsRequired()

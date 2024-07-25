@@ -13,7 +13,7 @@ namespace BookinV2.Data
 
         public DbSet<Advertisement>? Advertisements { get; set; }
 
-        public DbSet<RealEstate>? RealEstates { get; set; }
+        public DbSet<RealEstateDto>? RealEstates { get; set; }
 
         public DbSet<RealEstatePhoto>? RealEstatePhotos { get; set; }
 

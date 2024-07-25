@@ -47,6 +47,7 @@
 
 	<ItemGroup>
 	  <Folder Include="BookingV2Client\src\app\models\" />
+	  <Folder Include="Models\Новая папка\" />
 	</ItemGroup>
 	
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

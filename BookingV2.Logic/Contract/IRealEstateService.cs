@@ -5,14 +5,14 @@ namespace BookingV2.Logic.Contract
 {
     public interface IRealEstateService
     {
-        Task<ApiResponse<IEnumerable<RealEstate>>> GetAllAsync();
+        Task<ServiceResult<IEnumerable<RealEstateDto>>> GetAllAsync();
 
-        Task<ApiResponse<RealEstate>> GetByIdAsync(int id);
+        Task<ServiceResult<RealEstateDto>> GetByIdAsync(int id);
 
-        Task<ApiResponse<RealEstate>> AddAsync(RealEstate realEstate);
+        Task<ServiceResult<RealEstateDto>> AddAsync(RealEstateDto realEstate);
 
-        Task<ApiResponse<RealEstate>> UpdateAsync(RealEstate realEstate);
+        Task<ServiceResult<RealEstateDto>> UpdateAsync(RealEstateDto realEstate);
 
-        Task<ApiResponse<bool>> DeleteAsync(int id);
+        Task<ServiceResult<bool>> DeleteAsync(int id);
     }
 }
