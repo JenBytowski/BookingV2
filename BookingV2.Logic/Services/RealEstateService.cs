@@ -67,6 +67,12 @@ namespace BookingV2.Logic.Services
         {
             var response = new ServiceResult<RealEstateModel>();
 
+            if (realEstate == null)
+            {
+                response.AddError("RealEstate model is null.");
+                return response;
+            }
+
             if (string.IsNullOrWhiteSpace(realEstate.Address))
             {
                 response.AddError("Address is required.");
@@ -81,7 +87,7 @@ namespace BookingV2.Logic.Services
             }
 
             if (response.Errors.Count > 0)
-            {
+            {   
                 return response;
             }
 
@@ -103,6 +109,12 @@ namespace BookingV2.Logic.Services
         public async Task<ServiceResult<RealEstateModel>> UpdateAsync(RealEstateModel realEstate)
         {
             var response = new ServiceResult<RealEstateModel>();
+
+            if (realEstate == null)
+            {
+                response.AddError("RealEstate model is null.");
+                return response;
+            }
 
             if (string.IsNullOrWhiteSpace(realEstate.Address))
             {

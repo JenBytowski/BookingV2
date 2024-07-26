@@ -1,8 +1,8 @@
 using AutoMapper;
 using BookingV2.Logic.Contract;
 using BookingV2.Logic.Models;
-using BookinV2.Data.Entities.RealEstateEntities;
 using BookinV2API.Models.DTOs;
+using BookinV2API.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingV2API.Controllers
@@ -23,75 +23,80 @@ namespace BookingV2API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var response = await this._realEstateService.GetAllAsync();
-
-            if (!response.IsSucceeded)
+            var serviceResult = await this._realEstateService.GetAllAsync();
+            var response = new ApiResponse<IEnumerable<RealEstateDto>>
             {
-                return this.StatusCode(500, response.Errors);
-            }
+                IsSucceeded = serviceResult.IsSuccessful,
+                Response = this._mapper.Map<IEnumerable<RealEstateDto>>(serviceResult.Response),
+                Errors = serviceResult.Errors,
+            };
 
-            var realEstateDtos = this._mapper.Map<IEnumerable<RealEstateDto>>(response.Response);
-            return this.Ok(realEstateDtos);
+            return this.Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var response = await this._realEstateService.GetByIdAsync(id);
-
-            if (!response.IsSucceeded)
+            var serviceResult = await this._realEstateService.GetByIdAsync(id);
+            var response = new ApiResponse<RealEstateDto>
             {
-                return this.NotFound(response.Errors);
+                IsSucceeded = serviceResult.IsSuccessful,
+                Response = this._mapper.Map<RealEstateDto>(serviceResult.Response),
+                Errors = serviceResult.Errors,
+            };
+
+            if (!serviceResult.IsSuccessful)
+            {
+                return this.NotFound(response);
             }
 
-            var realEstateDto = this._mapper.Map<RealEstateDto>(response.Response);
-            return this.Ok(realEstateDto);
+            return this.Ok(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] RealEstateDto realEstateDto)
         {
             var realEstate = this._mapper.Map<RealEstateModel>(realEstateDto);
-            var response = await this._realEstateService.AddAsync(realEstate);
-
-            if (!response.IsSucceeded)
+            var serviceResult = await this._realEstateService.AddAsync(realEstate);
+            var response = new ApiResponse<RealEstateDto>
             {
-                return this.StatusCode(500, response.Errors);
+                IsSucceeded = serviceResult.IsSuccessful,
+                Response = this._mapper.Map<RealEstateDto>(serviceResult.Response),
+                Errors = serviceResult.Errors,
+            };
+
+            if (!serviceResult.IsSuccessful)
+            {
+                return this.BadRequest(response);
             }
 
-            var createdDto = this._mapper.Map<RealEstateDto>(response.Response);
-            return this.CreatedAtAction(nameof(this.GetById), new { id = createdDto.Id }, createdDto);
+            return this.CreatedAtAction(nameof(this.GetById), new { id = response.Response.Id }, response);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] RealEstateDto realEstateDto)
         {
-            if (id != realEstateDto.Id)
-            {
-                return this.BadRequest("ID mismatch.");
-            }
-
             var realEstate = this._mapper.Map<RealEstateModel>(realEstateDto);
-            var response = await this._realEstateService.UpdateAsync(realEstate);
-
-            if (!response.IsSucceeded)
+            realEstate.Id = id;
+            var serviceResult = await this._realEstateService.UpdateAsync(realEstate);
+            var response = new ApiResponse<RealEstateDto>
             {
-                return this.NotFound(response.Errors);
+                IsSucceeded = serviceResult.IsSuccessful,
+                Response = this._mapper.Map<RealEstateDto>(serviceResult.Response),
+                Errors = serviceResult.Errors,
+            };
+
+            if (!serviceResult.IsSuccessful)
+            {
+                return this.BadRequest(response);
             }
 
             return this.NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var response = await this._realEstateService.DeleteAsync(id);
-
-            if (!response.IsSucceeded)
-            {
-                return this.NotFound(response.Errors);
-            }
-
             return this.NoContent();
         }
     }

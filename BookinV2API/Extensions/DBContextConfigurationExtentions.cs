@@ -1,5 +1,3 @@
-using BookingV2.Logic.Contract;
-using BookingV2.Logic.Services;
 using BookinV2.Data;
 using Microsoft.EntityFrameworkCore;
 
