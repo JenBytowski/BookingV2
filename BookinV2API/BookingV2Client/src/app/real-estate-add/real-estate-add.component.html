@@ -1,0 +1,22 @@
+<h1>Add Real Estate</h1>
+<form (ngSubmit)="addRealEstate()">
+  <label for="address">Address:</label>
+  <input id="address" [(ngModel)]="realEstate.address" name="address" required>
+
+  <label for="square">Square:</label>
+  <input id="square" [(ngModel)]="realEstate.square" name="square" type="number" required>
+
+  <label for="roomCount">Room Count:</label>
+  <input id="roomCount" [(ngModel)]="realEstate.roomCount" name="roomCount" type="number" required>
+
+  <button type="submit">Add</button>
+</form>
+
+<app-error-display [errorMessages]="errorMessages"></app-error-display>
+
+<div *ngIf="realEstate.id !== 0">
+  <h2>Added Real Estate Details</h2>
+  <p>Address: {{ realEstate.address }}</p>
+  <p>Square: {{ realEstate.square }}</p>
+  <p>Room Count: {{ realEstate.roomCount }}</p>
+</div>
